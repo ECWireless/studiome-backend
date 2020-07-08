@@ -1,0 +1,20 @@
+{
+  "name": "studiome-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ECWireless/studiome-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ECWireless/studiome-backend/issues"
+  },
+  "homepage": "https://github.com/ECWireless/studiome-backend#readme"
+}
