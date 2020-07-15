@@ -15,8 +15,8 @@ const app = express();
 // Set up transporter
 const transport = {
     host: 'smtp.gmail.com',
-    port: 587,
-    authentication: 'login',
+    port: 465,
+    secure: true,
     auth: {
         user: process.env.EMAIL_ADDRESS,
         pass: process.env.EMAIL_PASSWORD
