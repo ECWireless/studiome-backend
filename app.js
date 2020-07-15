@@ -67,7 +67,7 @@ router.post('/mail', (req, res, next) => {
             })
 
             transporter.sendMail({
-                from: "Econway24@gmail.com",
+                from: "studiomellc@gmail.com",
                 to: email,
                 subject: "Submission was successful",
                 text: (
