@@ -39,16 +39,19 @@ router.post('/mail', (req, res, next) => {
     const number = req.body.number
     const message = req.body.message
     const content = (
-        `Name: ${name}
-        Email: ${email}
-        Number: ${number}
-        Message:
-        ${message}`
+        `
+            Name: ${name}
+            Email: ${email}
+            Number: ${number}
+            Message:
+            ${message}
+        `
     )
 
     const mail = {
-        from: 'Econway24@gmail.com',
-        to: 'Econway24@gmail.com',
+        from: 'studiomellc@gmail.com',
+        to: 'studiomellc@gmail.com',
+        cc: 'keith@studiome.me, joe@studiome.me, jake@studiome.me',
         subject: 'New Contact Submission Form',
         text: content
     }
