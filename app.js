@@ -52,7 +52,6 @@ router.post('/mail', (req, res, next) => {
     const mail = {
         from: 'studiomellc@gmail.com',
         to: 'studiomellc@gmail.com',
-        cc: 'keith@studiome.me, joe@studiome.me, jake@studiome.me',
         subject: 'New Contact Submission Form',
         text: content
     }
