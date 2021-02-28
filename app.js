@@ -17,7 +17,7 @@ router.post('/mail', async (req, res, next) => {
     const { name, email, number, message } = req.body;
     const confirmationEmail = {
         to: email,
-        from: 'Elliott@valtechcreative.com',
+        from: 'studiomellc@gmail.com',
         subject: `Submission was successful!`,
         html: `
           <p>TThank you for contacting us! We will get back to you as soon as possible.</p>
@@ -32,7 +32,7 @@ router.post('/mail', async (req, res, next) => {
 
     const notificationEmail = {
         to: 'studiomellc@gmail.com',
-        from: 'Elliott@valtechcreative.com',
+        from: 'studiomellc@gmail.com',
         subject: `New Contact Form Submission - ${email}`,
         html: `
           <p>New contact form submission from ${name}.</p>
