@@ -1,7 +1,7 @@
 // Imports
+const sgMail = require('@sendgrid/mail')
 const express = require('express')
 const cors = require('cors')
-const nodemailer = require('nodemailer')
 const router = express.Router()
 
 // Initialize Port and App
@@ -11,81 +11,47 @@ if (port == null || port == "") {
 }
 
 const app = express();
-
-// Set up transporter
-const transport = {
-    host: 'smtp.gmail.com',
-    port: 587,
-    auth: {
-        user: process.env.EMAIL_ADDRESS,
-        pass: process.env.EMAIL_PASSWORD
-    }
-}
-
-const transporter = nodemailer.createTransport(transport)
-
-transporter.verify((error, success) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('Server is ready to take messages');
-    }
-});
-
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 router.post('/mail', (req, res, next) => {
-    const name = req.body.name
-    const email = req.body.email
-    const number = req.body.number
-    const message = req.body.message
-    const content = (
+    const { name, email, number, message } = req.body;
+    const confirmationEmail = {
+        to: email,
+        from: 'Elliott@valtechcreative.com',
+        subject: `Submission was successful!`,
+        html: `
+          <p>TThank you for contacting us! We will get back to you as soon as possible.</p>
+          <br/>
+          <h3>Your submission:</h3>
+          <p>Name: ${name}</p>
+          <p>Email: ${email}</p>
+          <p>Phone: ${number}</p>
+          <p>Message: ${message}</p>
         `
-            Name: ${name}
-            Email: ${email}
-            Number: ${number}
-            Message:
-            ${message}
-        `
-    )
-
-    const mail = {
-        from: 'studiomellc@gmail.com',
-        to: 'studiomellc@gmail.com',
-        subject: 'New Contact Submission Form',
-        text: content
     }
 
-    transporter.sendMail(mail, (err, data) => {
-        if (err) {
-            res.json({
-                status: 'fail'
-            })
-        } else {
-            res.json({
-                status: 'success'
-            })
+    const notificationEmail = {
+        to: 'studiomellc@gmail.com',
+        from: 'Elliott@valtechcreative.com',
+        subject: `New Contact Form Submission - ${email}`,
+        html: `
+          <p>New contact form submission from ${name}.</p>
+          <br/>
+          <p>Name: ${name}</p>
+          <p>Email: ${email}</p>
+          <p>Phone: ${number}</p>
+          <p>Message: ${message}</p>
+        `
+    }
 
-            transporter.sendMail({
-                from: "studiomellc@gmail.com",
-                to: email,
-                subject: "Submission was successful",
-                text: (
-                    `Thank you for contacting us! We will get back to you as soon as possible.
-
-                    FORM DETAILS:
-                    Name: ${name}
-                    Email: ${email}
-                    Message: ${message}`
-                )
-            }, function(error, info){
-                if(error) {
-                    console.log(error);
-                } else{
-                    console.log('Message sent: ' + info.response);
-                }
-            });
-        }
-    })
+    try {
+        await sgMail.send(confirmationEmail)
+        await sgMail.send(notificationEmail)
+        res.status(200).send('Message sent successfully.')
+      } catch (error) {
+        console.log('ERROR', error)
+        res.status(400).send('Message not sent.')
+      }
 })
 
 app.use(cors())
