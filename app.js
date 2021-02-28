@@ -20,7 +20,7 @@ router.post('/mail', async (req, res, next) => {
         from: 'studiomellc@gmail.com',
         subject: `Submission was successful!`,
         html: `
-          <p>TThank you for contacting us! We will get back to you as soon as possible.</p>
+          <p>Thank you for contacting us! We will get back to you as soon as possible.</p>
           <br/>
           <h3>Your submission:</h3>
           <p>Name: ${name}</p>
