@@ -13,7 +13,7 @@ if (port == null || port == "") {
 const app = express();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-router.post('/mail', (req, res, next) => {
+router.post('/mail', async (req, res, next) => {
     const { name, email, number, message } = req.body;
     const confirmationEmail = {
         to: email,
